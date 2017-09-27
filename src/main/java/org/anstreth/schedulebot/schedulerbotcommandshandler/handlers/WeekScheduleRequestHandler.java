@@ -6,6 +6,7 @@ import org.anstreth.schedulebot.schedulerbotcommandshandler.response.NoScheduleF
 import org.anstreth.schedulebot.schedulerbotcommandshandler.response.ScheduleResponse;
 import org.anstreth.schedulebot.schedulerbotcommandshandler.response.WeekResponse;
 import org.anstreth.schedulebot.schedulerrepository.SchedulerRepository;
+import org.anstreth.utils.TimeSupplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,15 +16,17 @@ import java.util.Calendar;
 public class WeekScheduleRequestHandler implements SchedulerRequestHandler {
 
     private final SchedulerRepository repository;
+    private final TimeSupplier timeSupplier;
 
     @Autowired
-    public WeekScheduleRequestHandler(SchedulerRepository repository) {
+    public WeekScheduleRequestHandler(SchedulerRepository repository, TimeSupplier timeSupplier) {
         this.repository = repository;
+        this.timeSupplier = timeSupplier;
     }
 
     @Override
     public ScheduleResponse handle(ScheduleRequest request) {
-        Calendar now = Calendar.getInstance();
+        Calendar now = timeSupplier.now();
         WeekSchedule week = repository.getScheduleForGroupForWeek(request.getGroupId(), now);
         if (weekHasNoDays(week)) {
             return new NoScheduleForWeekResponse(now);

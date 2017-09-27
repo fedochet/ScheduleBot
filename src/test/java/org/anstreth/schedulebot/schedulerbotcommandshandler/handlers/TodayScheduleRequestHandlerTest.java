@@ -8,6 +8,7 @@ import org.anstreth.schedulebot.schedulerbotcommandshandler.response.NoScheduleF
 import org.anstreth.schedulebot.schedulerbotcommandshandler.response.ScheduleResponse;
 import org.anstreth.schedulebot.schedulerbotcommandshandler.response.SimpleStringResponse;
 import org.anstreth.schedulebot.schedulerrepository.SchedulerRepository;
+import org.anstreth.utils.TimeSupplier;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -20,8 +21,7 @@ import static org.anstreth.schedulebot.commands.UserCommand.TODAY;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -33,11 +33,16 @@ public class TodayScheduleRequestHandlerTest {
     @Mock
     private SchedulerRepository schedulerRepository;
 
+    @Mock
+    private TimeSupplier timeSupplier;
+
     @Test
     public void todaySchedulerGetsCurrentDayFromRepoAndReturnsDayResponse() {
         int groupId = 1;
         Day day = new Day();
-        when(schedulerRepository.getScheduleForGroupForDay(eq(groupId), any(Calendar.class))).thenReturn(day);
+        Calendar date = mock(Calendar.class);
+        when(timeSupplier.now()).thenReturn(date);
+        when(schedulerRepository.getScheduleForGroupForDay(groupId, date)).thenReturn(day);
 
         ScheduleResponse response = handler.handle(new ScheduleRequest(groupId, TODAY));
 
@@ -47,7 +52,9 @@ public class TodayScheduleRequestHandlerTest {
     @Test
     public void ifRepositoryThrowsNoScheduleException_Then_NoScheduleResponseIsReturned() {
         int groupId = 1;
-        when(schedulerRepository.getScheduleForGroupForDay(eq(groupId), any(Calendar.class))).thenThrow(new NoScheduleForDay());
+        Calendar date = mock(Calendar.class);
+        when(timeSupplier.now()).thenReturn(date);
+        when(schedulerRepository.getScheduleForGroupForDay(groupId, date)).thenThrow(new NoScheduleForDay());
 
         ScheduleResponse response = handler.handle(new ScheduleRequest(groupId, TODAY));
 
@@ -57,7 +64,9 @@ public class TodayScheduleRequestHandlerTest {
     @Test
     public void ifRepositoryThrowsException_Then_SimpleStringResponseIsReturned() {
         int groupId = 1;
-        when(schedulerRepository.getScheduleForGroupForDay(eq(groupId), any(Calendar.class))).thenThrow(new RuntimeException());
+        Calendar date = mock(Calendar.class);
+        when(timeSupplier.now()).thenReturn(date);
+        when(schedulerRepository.getScheduleForGroupForDay(groupId, date)).thenThrow(new RuntimeException());
 
         ScheduleResponse response = handler.handle(new ScheduleRequest(groupId, TODAY));
 

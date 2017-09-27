@@ -8,20 +8,22 @@ import org.anstreth.schedulebot.schedulerbotcommandshandler.response.NoScheduleF
 import org.anstreth.schedulebot.schedulerbotcommandshandler.response.ScheduleResponse;
 import org.anstreth.schedulebot.schedulerbotcommandshandler.response.WeekResponse;
 import org.anstreth.schedulebot.schedulerrepository.SchedulerRepository;
+import org.anstreth.utils.TimeSupplier;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.Calendar;
 import java.util.Collections;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.junit.Assert.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WeekScheduleRequestHandlerTest {
@@ -32,12 +34,17 @@ public class WeekScheduleRequestHandlerTest {
     @Mock
     private SchedulerRepository repository;
 
+    @Mock
+    private TimeSupplier timeSupplier;
+
     @Test
     public void handlerShouldTakeWeekFromRepoAndReturnWeekResponse() {
         int groupId = 1;
         WeekSchedule weekFromRepo = new WeekSchedule();
         weekFromRepo.setDays(Collections.singletonList(new Day()));
-        given(repository.getScheduleForGroupForWeek(eq(groupId), any())).willReturn(weekFromRepo);
+        Calendar date = mock(Calendar.class);
+        when(timeSupplier.now()).thenReturn(date);
+        given(repository.getScheduleForGroupForWeek(groupId, date)).willReturn(weekFromRepo);
 
         WeekResponse response = (WeekResponse) weekHandler.handle(new ScheduleRequest(groupId, UserCommand.WEEK));
 
@@ -49,7 +56,9 @@ public class WeekScheduleRequestHandlerTest {
         int groupId = 1;
         WeekSchedule weekFromRepo = new WeekSchedule();
         weekFromRepo.setDays(null);
-        given(repository.getScheduleForGroupForWeek(eq(groupId), any())).willReturn(weekFromRepo);
+        Calendar date = mock(Calendar.class);
+        when(timeSupplier.now()).thenReturn(date);
+        when(repository.getScheduleForGroupForWeek(groupId, date)).thenReturn(weekFromRepo);
 
         ScheduleResponse response = weekHandler.handle(new ScheduleRequest(groupId, UserCommand.WEEK));
 
@@ -61,7 +70,9 @@ public class WeekScheduleRequestHandlerTest {
         int groupId = 1;
         WeekSchedule weekFromRepo = new WeekSchedule();
         weekFromRepo.setDays(Collections.emptyList());
-        given(repository.getScheduleForGroupForWeek(eq(groupId), any())).willReturn(weekFromRepo);
+        Calendar date = mock(Calendar.class);
+        when(timeSupplier.now()).thenReturn(date);
+        when(repository.getScheduleForGroupForWeek(groupId, date)).thenReturn(weekFromRepo);
 
         ScheduleResponse response = weekHandler.handle(new ScheduleRequest(groupId, UserCommand.WEEK));
 
