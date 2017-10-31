@@ -25,7 +25,7 @@ public class ScheduleRequestHandlersRouterTest {
 
     @Test
     public void returnsTomorrowIfCommandIs_TOMORROW() throws Exception {
-        assertThat(router.getHandlerForCommand(TOMORROW), isA(TommorowScheduleRequestHandler.class));
+        assertThat(router.getHandlerForCommand(TOMORROW), isA(TomorrowScheduleRequestHandler.class));
     }
 
     @Test
@@ -34,7 +34,7 @@ public class ScheduleRequestHandlersRouterTest {
     }
 
     @Test
-    public void returnsUnknownCommandHanlderIfCommandIs_UNKNOWN() throws Exception {
+    public void returnsUnknownCommandHandlerIfCommandIs_UNKNOWN() throws Exception {
         assertThat(router.getHandlerForCommand(UNKNOWN), isA(UnrecognizedCommandHandler.class));
     }
 

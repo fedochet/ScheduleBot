@@ -12,7 +12,7 @@ public enum UserRoute {
     GROUP_SEARCH,
 
     /**
-     * Basic state in which user can ask for schedule and enter the manu.
+     * Basic state in which user can ask for schedule and enter the menu.
      */
     HOME,
 

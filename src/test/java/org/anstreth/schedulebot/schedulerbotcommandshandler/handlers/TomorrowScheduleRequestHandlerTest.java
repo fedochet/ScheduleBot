@@ -25,9 +25,9 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TommorowScheduleRequestHandlerTest {
+public class TomorrowScheduleRequestHandlerTest {
     @InjectMocks
-    private TommorowScheduleRequestHandler handler;
+    private TomorrowScheduleRequestHandler handler;
     @Mock
     private SchedulerRepository schedulerRepository;
 

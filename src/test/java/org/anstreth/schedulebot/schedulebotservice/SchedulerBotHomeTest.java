@@ -59,12 +59,12 @@ public class SchedulerBotHomeTest {
         UserCommand parsedCommand = UserCommand.TODAY;
         UserRequest userRequest = new UserRequest(userId, command);
         ScheduleRequest expectedScheduleRequest = new ScheduleRequest(groupId, parsedCommand);
-        List<String> messagesFromHanlder = Collections.singletonList("response");
-        BotResponse commandHanldedResponse = new BotResponse(messagesFromHanlder, PossibleReplies.WITH_GROUP_REPLIES);
+        List<String> messagesFromHandler = Collections.singletonList("response");
+        BotResponse commandHandledResponse = new BotResponse(messagesFromHandler, PossibleReplies.WITH_GROUP_REPLIES);
         doReturn(groupId).when(userGroupRepository).get(userId);
         doReturn(parsedCommand).when(parser).parse(command);
-        doReturn(messagesFromHanlder).when(commandsHandler).handleRequest(expectedScheduleRequest);
+        doReturn(messagesFromHandler).when(commandsHandler).handleRequest(expectedScheduleRequest);
 
-        assertThat(schedulerBotHome.handleRequest(userRequest), is(commandHanldedResponse));
+        assertThat(schedulerBotHome.handleRequest(userRequest), is(commandHandledResponse));
     }
 }

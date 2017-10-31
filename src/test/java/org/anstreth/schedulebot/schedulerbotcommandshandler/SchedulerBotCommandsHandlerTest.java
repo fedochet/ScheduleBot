@@ -35,7 +35,7 @@ public class SchedulerBotCommandsHandlerTest {
     private SchedulerRequestHandler mockRequestHandler;
 
     @Mock
-    private ScheduleResponse reponseToRequest;
+    private ScheduleResponse responseToRequest;
 
     @Test
     public void commandsHandler_TakesHandlerFromRouter_ThenFormatsWith_Formatter_andReturnThem() {
@@ -44,8 +44,8 @@ public class SchedulerBotCommandsHandlerTest {
         List<String> formattedMessages = Arrays.asList("one", "two");
         ScheduleRequest requestToHandle = new ScheduleRequest(groupId, command);
         when(scheduleRequestHandlersRouter.getHandlerForCommand(command)).thenReturn(mockRequestHandler);
-        when(mockRequestHandler.handle(requestToHandle)).thenReturn(reponseToRequest);
-        when(reponseToRequest.formatWith(formatter)).thenReturn(formattedMessages);
+        when(mockRequestHandler.handle(requestToHandle)).thenReturn(responseToRequest);
+        when(responseToRequest.formatWith(formatter)).thenReturn(formattedMessages);
 
         assertThat(
                 schedulerBotCommandsHandler.handleRequest(requestToHandle),
