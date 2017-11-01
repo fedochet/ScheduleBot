@@ -50,14 +50,14 @@ public class SimpleSchedulerFormatterTest {
     }
 
     @Test
-    public void NoScheduleForDay_reponseIsFormattedCorrectly() throws Exception {
+    public void NoScheduleForDay_responseIsFormattedCorrectly() throws Exception {
         List<String> messages = schedulerFormatter.format(mock(NoScheduleForDayResponse.class));
 
         assertThat(messages, contains("There are no lessons!"));
     }
 
     @Test
-    public void NoScheduleForWeek_reponseIsFormattedCorrectly() {
+    public void NoScheduleForWeek_responseIsFormattedCorrectly() {
         List<String> messages = schedulerFormatter.format(mock(NoScheduleForWeekResponse.class));
 
         assertThat(messages, contains("There are no schedule for this week!"));

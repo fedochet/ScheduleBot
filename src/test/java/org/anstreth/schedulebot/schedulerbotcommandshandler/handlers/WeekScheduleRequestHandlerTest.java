@@ -57,7 +57,7 @@ public class WeekScheduleRequestHandlerTest {
     }
 
     @Test
-    public void ifWeekDaysAreEmptyThen_noSheduleForWeek_isReturned() {
+    public void ifWeekDaysAreEmptyThen_noScheduleForWeek_isReturned() {
         int groupId = 1;
         WeekSchedule weekFromRepo = new WeekSchedule();
         weekFromRepo.setDays(Collections.emptyList());

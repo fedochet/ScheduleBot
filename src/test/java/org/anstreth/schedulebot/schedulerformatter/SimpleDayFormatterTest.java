@@ -40,7 +40,7 @@ public class SimpleDayFormatterTest {
     }
 
     @Test
-    public void everyLessonIsFromattedWithLessonFromatter() throws Exception {
+    public void everyLessonIsFormattedWithLessonFormatter() throws Exception {
         Lesson lesson = mock(Lesson.class);
         Day dayWithLessons = new Day();
         dayWithLessons.setDate(new Date());
@@ -60,9 +60,9 @@ public class SimpleDayFormatterTest {
         dayWithoutLessons.setLessons(Collections.emptyList());
         String expectedPlaceholder = "There are no lessons for this day!";
 
-        String formattedReslut = dayFormatter.formatDay(dayWithoutLessons);
+        String formattedResult = dayFormatter.formatDay(dayWithoutLessons);
 
-        assertThat(formattedReslut, endsWith(expectedPlaceholder));
+        assertThat(formattedResult, endsWith(expectedPlaceholder));
     }
 
     private String getExpectedDayFormat(Date date) {

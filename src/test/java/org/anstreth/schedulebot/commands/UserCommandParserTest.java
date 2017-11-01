@@ -35,12 +35,12 @@ public class UserCommandParserTest {
     }
 
     @Test
-    public void ifCommandIsWierdThen_UNKNOWN_IsReturned() throws Exception {
+    public void ifCommandIsWeirdThen_UNKNOWN_IsReturned() throws Exception {
         assertThat(parser.parse("testtest"), is(UNKNOWN));
     }
 
     @Test
-    public void commandWithNotTrimmedSpacesIscorrectlyParsed() throws Exception {
+    public void commandWithNotTrimmedSpacesIsCorrectlyParsed() throws Exception {
         assertThat(parser.parse("  /today  "), is(TODAY));
     }
 }

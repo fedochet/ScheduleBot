@@ -17,7 +17,7 @@ public class ScheduleRequestHandlersRouter {
             case TODAY:
                 return new TodayScheduleRequestHandler(schedulerRepository);
             case TOMORROW:
-                return new TommorowScheduleRequestHandler(schedulerRepository);
+                return new TomorrowScheduleRequestHandler(schedulerRepository);
             case WEEK:
                 return new WeekScheduleRequestHandler(schedulerRepository);
             default:

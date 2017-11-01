@@ -6,8 +6,8 @@ import org.anstreth.schedulebot.schedulerrepository.SchedulerRepository;
 
 import java.util.Calendar;
 
-public class TommorowScheduleRequestHandler extends OneDayScheduleRequestHandler {
-    TommorowScheduleRequestHandler(SchedulerRepository schedulerRepository) {
+public class TomorrowScheduleRequestHandler extends OneDayScheduleRequestHandler {
+    TomorrowScheduleRequestHandler(SchedulerRepository schedulerRepository) {
         super(schedulerRepository);
     }
 

@@ -24,7 +24,7 @@ public class DummyUserRepositoryTest {
     }
 
     @Test
-    public void afterDeletionUserDissapears() throws Exception {
+    public void afterDeletionUserDisappears() throws Exception {
         User savedUser = dummyUserRepository.save(new User(1));
 
         dummyUserRepository.delete(savedUser);

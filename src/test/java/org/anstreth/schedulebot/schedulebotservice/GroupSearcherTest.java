@@ -24,12 +24,12 @@ public class GroupSearcherTest {
     private GroupSearcher groupSearcher;
 
     @Mock
-    private GroupsRepository groupReposiory;
+    private GroupsRepository groupRepository;
 
     @Test
     public void when_groupRepository_returns_null_emptyIsReturned() throws Exception {
         String groupName = "name";
-        doReturn(null).when(groupReposiory).findGroupsByName(groupName);
+        doReturn(null).when(groupRepository).findGroupsByName(groupName);
 
         assertThat(groupSearcher.findGroupByName(groupName), is(Optional.empty()));
     }
@@ -37,7 +37,7 @@ public class GroupSearcherTest {
     @Test
     public void when_groupRepository_returns_Groups_withNullList_thenEmptyIsReturned() throws Exception {
         String groupName = "name";
-        doReturn(new Groups()).when(groupReposiory).findGroupsByName(groupName);
+        doReturn(new Groups()).when(groupRepository).findGroupsByName(groupName);
 
         assertThat(groupSearcher.findGroupByName(groupName), is(Optional.empty()));
     }
@@ -47,7 +47,7 @@ public class GroupSearcherTest {
         String groupName = "name";
         Groups groups = new Groups();
         groups.setGroups(Collections.emptyList());
-        doReturn(groups).when(groupReposiory).findGroupsByName(groupName);
+        doReturn(groups).when(groupRepository).findGroupsByName(groupName);
 
         assertThat(groupSearcher.findGroupByName(groupName), is(Optional.empty()));
     }
@@ -58,7 +58,7 @@ public class GroupSearcherTest {
         Groups groups = new Groups();
         Group group = mock(Group.class);
         groups.setGroups(Collections.singletonList(group));
-        doReturn(groups).when(groupReposiory).findGroupsByName(groupName);
+        doReturn(groups).when(groupRepository).findGroupsByName(groupName);
 
         assertThat(groupSearcher.findGroupByName(groupName), is(Optional.of(group)));
     }
