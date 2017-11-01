@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.5.6.RELEASE'
+		springBootVersion = '1.5.8.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -31,10 +31,10 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-web')
     compile("org.springframework.boot:spring-boot-devtools")
-    compile group: 'org.telegram', name: 'telegrambots', version: '3.3'
+    compile group: 'org.telegram', name: 'telegrambots', version: '3.4'
 	runtime('com.h2database:h2')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.9.0'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.11.0'
     compileOnly "org.projectlombok:lombok:1.16.18"
 }
 
