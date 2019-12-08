@@ -11,6 +11,7 @@ import java.util.List;
 public class Lesson {
     private String subject;
     private List<Auditory> auditories;
+    private List<Teacher> teachers;
 
     @JsonProperty("typeObj")
     private LessonType lessonType;
